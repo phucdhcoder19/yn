@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f0fa;
+  --foreground: #2d2a32;
+  --muted: #6b6574;
+  --card: #ffffff;
+  --card-hover: #f8f4f6;
+  --card-border: rgba(216, 191, 216, 0.35);
+  --accent: #9b8bb3;
+  --accent-dim: rgba(216, 191, 216, 0.4);
+  --green: #7a9a7a;
+  --rose: #e8b4bc;
+  --gold: #c9a86c;
+  --champagne: #f5e6d3;
+  --pastel-pink: #ffd1dc;
+  --pastel-lavender: #e6e6fa;
+  --pastel-mint: #c8e6c9;
+  --pastel-peach: #ffdab9;
+  --pastel-sky: #b3e5fc;
+  --pastel-violet: #d8bfd8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-card-border: var(--card-border);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-green: var(--green);
+  --color-rose: var(--rose);
+  --color-gold: var(--gold);
+  --color-champagne: var(--champagne);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-heading: "Cormorant Garamond", "Poppins", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background: #f0f4ff;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse 140% 100% at 100% 0%, rgba(179, 229, 252, 0.5) 0%, rgba(179, 229, 252, 0.15) 40%, transparent 70%),
+    radial-gradient(ellipse 120% 90% at 0% 100%, rgba(230, 230, 250, 0.5) 0%, rgba(230, 230, 250, 0.12) 45%, transparent 75%),
+    radial-gradient(ellipse 100% 80% at 50% 40%, rgba(255, 209, 220, 0.35) 0%, rgba(255, 209, 220, 0.08) 50%, transparent 70%),
+    linear-gradient(160deg,
+      #e8f4fc 0%,
+      #f5f0fa 25%,
+      #fce8f4 50%,
+      #f5f0fa 75%,
+      #e8f0fc 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(216, 191, 216, 0.35);
+  color: var(--foreground);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(216, 191, 216, 0.6);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(216, 191, 216, 0.8);
+}
+
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 248, 252, 0.98) 100%);
+  border: 1px solid rgba(216, 191, 216, 0.4);
+  box-shadow: 0 4px 24px rgba(155, 139, 179, 0.08);
+}
+
+.glass-pastel-pink { background: linear-gradient(135deg, rgba(255, 209, 220, 0.4) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(255, 182, 193, 0.5); }
+.glass-pastel-lavender { background: linear-gradient(135deg, rgba(230, 230, 250, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(216, 191, 216, 0.5); }
+.glass-pastel-mint { background: linear-gradient(135deg, rgba(200, 230, 201, 0.4) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(165, 214, 167, 0.5); }
+.glass-pastel-peach { background: linear-gradient(135deg, rgba(255, 218, 185, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(255, 200, 160, 0.5); }
+.glass-pastel-sky { background: linear-gradient(135deg, rgba(179, 229, 252, 0.4) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(144, 202, 249, 0.5); }
+.glass-pastel-violet { background: linear-gradient(135deg, rgba(216, 191, 216, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(206, 147, 216, 0.4); }
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(216, 191, 216, 0.25);
+  box-shadow: 0 4px 30px rgba(155, 139, 179, 0.04);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #d8bfd8, #c8e6c9);
+  border-radius: 9999px;
+  height: 100%;
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-label {
+  font-family: var(--font-heading);
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
