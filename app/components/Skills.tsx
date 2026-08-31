@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import ScrollReveal, { staggerContainer, staggerItem } from "./ScrollReveal";
+import SectionHeading from "./SectionHeading";
 
 const proficiency = [
   {
@@ -33,11 +34,11 @@ function ToolLogo({
       whileHover={{ scale: 1.05, y: -2 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.15 }}
-      className="group flex cursor-default flex-col items-center gap-2 rounded-xl bg-white/80 p-4 border border-violet-200/30 hover:border-violet-200/50 transition-colors"
+      className="group flex cursor-default flex-col items-center gap-2 rounded-lg border border-(--line) bg-card p-4 transition-colors hover:border-(--line-strong)"
     >
-      <div className="relative flex h-12 w-12 items-center justify-center rounded-lg bg-white p-2 shadow-sm overflow-hidden">
+      <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-white p-2 shadow-sm">
         {imgError ? (
-          <span className="font-(family-name:--font-cormorant) text-lg font-semibold text-violet-600">
+          <span className="font-(family-name:--font-cormorant) text-lg font-semibold text-accent">
             {tool.name.charAt(0)}
           </span>
         ) : (
@@ -52,7 +53,7 @@ function ToolLogo({
           />
         )}
       </div>
-      <span className="text-center text-[11px] font-medium text-muted group-hover:text-foreground transition-colors">
+      <span className="text-center text-[11px] font-medium text-muted transition-colors group-hover:text-foreground">
         {tool.name}
       </span>
     </motion.div>
@@ -156,9 +157,11 @@ function ProgressBar({ level, name }: { level: number; name: string }) {
     <div ref={ref}>
       <div className="mb-2 flex items-center justify-between">
         <span className="text-sm font-medium text-foreground">{name}</span>
-        <span className="text-xs font-semibold text-muted">{level}%</span>
+        <span className="font-(family-name:--font-cormorant) text-sm font-semibold italic text-accent">
+          {level}%
+        </span>
       </div>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-violet-100">
+      <div className="h-[5px] w-full overflow-hidden rounded-full bg-foreground/10">
         <div className="progress-bar" style={{ width: `${width}%` }} />
       </div>
     </div>
@@ -169,20 +172,12 @@ export default function Skills() {
   return (
     <section id="skills" className="relative py-20 px-4 sm:px-6 sm:py-28">
       <div className="relative mx-auto max-w-6xl">
-        <ScrollReveal>
-          <h2 className="font-(family-name:--font-cormorant) text-sm font-semibold uppercase tracking-[0.25em] text-violet-600">
-            Skills &amp; Expertise
-          </h2>
-        </ScrollReveal>
+        <SectionHeading index="04" title="Skills & Expertise" />
 
         {/* Marketing Proficiency */}
         <ScrollReveal delay={0.1}>
-          <motion.div
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.2 }}
-            className="glass glass-pastel-peach mt-6 rounded-2xl p-6 sm:p-8 border-amber-200/40 hover:border-amber-300 transition-colors"
-          >
-            <h3 className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground">
+          <div className="card-paper mt-8 rounded-xl p-6 sm:p-8">
+            <h3 className="font-(family-name:--font-cormorant) text-2xl font-semibold text-foreground">
               Marketing Proficiency
             </h3>
             <p className="mt-1 text-sm text-muted">
@@ -195,7 +190,7 @@ export default function Skills() {
                 <ProgressBar key={skill.name} {...skill} />
               ))}
             </div>
-          </motion.div>
+          </div>
         </ScrollReveal>
 
         {/* Tools & Platforms */}
@@ -205,9 +200,9 @@ export default function Skills() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-50px" }}
-            className="glass mt-4 rounded-2xl p-6 sm:p-8 border-amber-500/5 hover:border-amber-500/15 transition-colors"
+            className="card-paper mt-4 rounded-xl p-6 sm:p-8"
           >
-            <h3 className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground">
+            <h3 className="font-(family-name:--font-cormorant) text-2xl font-semibold text-foreground">
               Tools &amp; Platforms
             </h3>
             <p className="mt-1 text-sm text-muted">
@@ -232,9 +227,9 @@ export default function Skills() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-50px" }}
-            className="glass mt-4 rounded-2xl p-6 sm:p-8 border-amber-500/5 hover:border-amber-500/15 transition-colors"
+            className="card-paper mt-4 rounded-xl p-6 sm:p-8"
           >
-            <h3 className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground">
+            <h3 className="font-(family-name:--font-cormorant) text-2xl font-semibold text-foreground">
               Methodologies &amp; Approaches
             </h3>
             <p className="mt-1 text-sm text-muted">
@@ -248,7 +243,7 @@ export default function Skills() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.15 }}
-                  className="cursor-default rounded-lg bg-violet-50 px-4 py-2 text-sm font-medium text-foreground border border-violet-200/30"
+                  className="pill-ink cursor-default px-4 py-1.5 text-sm font-medium"
                 >
                   {m}
                 </motion.span>
@@ -259,12 +254,8 @@ export default function Skills() {
 
         {/* Campaign Management */}
         <ScrollReveal delay={0.25}>
-          <motion.div
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.2 }}
-            className="glass mt-4 rounded-2xl p-6 sm:p-8 border-amber-500/5 hover:border-amber-500/15 transition-colors"
-          >
-            <h3 className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground">
+          <div className="card-paper mt-4 rounded-xl p-6 sm:p-8">
+            <h3 className="font-(family-name:--font-cormorant) text-2xl font-semibold text-foreground">
               Campaign Management
             </h3>
             <p className="mt-1 text-sm text-muted">
@@ -277,9 +268,9 @@ export default function Skills() {
                   key={phase.title}
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.15 }}
-                  className="rounded-xl bg-violet-50 p-5 border border-violet-200/40"
+                  className="rounded-lg border border-(--line) p-5"
                 >
-                  <h4 className="font-(family-name:--font-cormorant) text-sm font-semibold text-foreground">
+                  <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-olive">
                     {phase.title}
                   </h4>
                   <ul className="mt-3 space-y-2">
@@ -288,7 +279,7 @@ export default function Skills() {
                         key={itm}
                         className="flex items-center gap-2 text-sm text-muted"
                       >
-                        <span className="h-1 w-1 shrink-0 rounded-full bg-muted" />
+                        <span className="h-1 w-1 shrink-0 rounded-full bg-accent" />
                         {itm}
                       </li>
                     ))}
@@ -297,16 +288,16 @@ export default function Skills() {
               ))}
             </div>
 
-            <div className="mt-6 rounded-xl bg-violet-50 p-6 text-center border border-violet-200/40">
-              <p className="font-(family-name:--font-cormorant) text-sm italic text-muted sm:text-base">
+            <div className="mt-6 border-t border-(--line) pt-6 text-center">
+              <p className="font-(family-name:--font-cormorant) text-lg italic text-foreground sm:text-xl">
                 &ldquo;Don&apos;t count the clicks, make the campaigns
                 count.&rdquo;
               </p>
-              <p className="mt-2 text-xs font-medium text-muted">
+              <p className="mt-2 text-xs font-medium tracking-wider text-muted">
                 &mdash; Đặng Thị Yến Nhi
               </p>
             </div>
-          </motion.div>
+          </div>
         </ScrollReveal>
       </div>
     </section>

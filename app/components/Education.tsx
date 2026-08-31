@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Award } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import SectionHeading from "./SectionHeading";
 
 const education = [
   {
@@ -23,32 +24,30 @@ export default function Education() {
   return (
     <section id="education" className="relative py-20 px-4 sm:px-6 sm:py-28">
       <div className="relative mx-auto max-w-6xl">
-        <ScrollReveal>
-          <h2 className="font-(family-name:--font-cormorant) text-sm font-semibold uppercase tracking-[0.25em] text-violet-600">
-            Education &amp; Certificates
-          </h2>
-        </ScrollReveal>
+        <SectionHeading index="05" title="Education & Certificates" />
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
           {/* Education */}
-          <ScrollReveal delay={0.1}>
+          <ScrollReveal delay={0.1} direction="left">
             <motion.div
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2 }}
-              className="glass glass-pastel-mint h-full rounded-2xl p-6 sm:p-8 border-emerald-200/10 hover:border-emerald-200/20 transition-colors"
+              className="card-paper h-full rounded-xl p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-violet-100">
-                  <GraduationCap size={18} className="text-muted" />
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-(--line)">
+                  <GraduationCap size={18} className="text-olive" />
                 </div>
                 <div>
-                  <h3 className="font-(family-name:--font-cormorant) text-base font-semibold text-foreground">
+                  <h3 className="font-(family-name:--font-cormorant) text-xl font-semibold text-foreground">
                     {education[0].school}
                   </h3>
-                  <p className="mt-1 text-sm font-medium text-muted">
+                  <p className="mt-1 text-sm font-semibold text-accent">
                     {education[0].degree}
                   </p>
-                  <p className="mt-2 text-sm text-muted">{education[0].period}</p>
+                  <p className="mt-2 text-sm text-muted">
+                    {education[0].period}
+                  </p>
                   <p className="mt-1 text-sm font-semibold text-foreground">
                     {education[0].gpa}
                   </p>
@@ -58,18 +57,18 @@ export default function Education() {
           </ScrollReveal>
 
           {/* Certificates */}
-          <ScrollReveal delay={0.15}>
+          <ScrollReveal delay={0.15} direction="right">
             <motion.div
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2 }}
-              className="glass glass-pastel-mint h-full rounded-2xl p-6 sm:p-8 border-emerald-200/10 hover:border-emerald-200/20 transition-colors"
+              className="card-paper h-full rounded-xl p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-violet-100">
-                  <Award size={18} className="text-violet-600" />
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-(--line)">
+                  <Award size={18} className="text-accent" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-(family-name:--font-cormorant) text-base font-semibold text-foreground">
+                  <h3 className="font-(family-name:--font-cormorant) text-xl font-semibold text-foreground">
                     Awards &amp; Certificates
                   </h3>
                   <ul className="mt-4 space-y-2">
@@ -78,7 +77,7 @@ export default function Education() {
                         key={cert}
                         className="flex items-start gap-2 text-sm text-muted"
                       >
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted" />
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
                         {cert}
                       </li>
                     ))}

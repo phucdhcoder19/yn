@@ -1,14 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ExternalLink,
-  TrendingUp,
-  MousePointerClick,
-  DollarSign,
-  BarChart3,
-} from "lucide-react";
+import { BarChart3, MousePointerClick, TrendingUp } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import SectionHeading from "./SectionHeading";
 
 const campaigns = [
   {
@@ -30,8 +25,6 @@ const campaigns = [
       { label: "Role", value: "Leader", icon: MousePointerClick },
       { label: "Year", value: "2024", icon: TrendingUp },
     ],
-    liveUrl: "#",
-    caseUrl: "#",
   },
   {
     status: "Completed",
@@ -52,8 +45,6 @@ const campaigns = [
       { label: "Role", value: "Leader", icon: MousePointerClick },
       { label: "Year", value: "2024", icon: TrendingUp },
     ],
-    liveUrl: "#",
-    caseUrl: "#",
   },
   {
     status: "Completed",
@@ -74,8 +65,6 @@ const campaigns = [
       { label: "Retention", value: "+30%", icon: BarChart3 },
       { label: "Year", value: "2026", icon: MousePointerClick },
     ],
-    liveUrl: "#",
-    caseUrl: "#",
   },
   {
     status: "Completed",
@@ -96,8 +85,6 @@ const campaigns = [
       { label: "Focus", value: "Content", icon: MousePointerClick },
       { label: "Year", value: "2025", icon: TrendingUp },
     ],
-    liveUrl: "#",
-    caseUrl: "#",
   },
   {
     status: "Completed",
@@ -119,146 +106,104 @@ const campaigns = [
       { label: "Role", value: "Organizer", icon: MousePointerClick },
       { label: "Year", value: "2025", icon: TrendingUp },
     ],
-    liveUrl: "#",
-    caseUrl: "#",
   },
 ];
-
-const categoryColors: Record<string, string> = {
-  Performance: "bg-pink-100 text-pink-700",
-  B2B: "bg-violet-100 text-violet-700",
-  Brand: "bg-pink-100 text-pink-700",
-  SEO: "bg-sky-100 text-sky-700",
-  Strategy: "bg-violet-100 text-violet-700",
-  Research: "bg-emerald-100 text-emerald-700",
-  Content: "bg-pink-100 text-pink-700",
-  Sales: "bg-amber-100 text-amber-700",
-  Volunteer: "bg-teal-100 text-teal-700",
-};
 
 export default function Campaigns() {
   return (
     <section id="campaigns" className="relative py-20 px-4 sm:px-6 sm:py-28">
       <div className="relative mx-auto max-w-6xl">
-        <ScrollReveal>
-          <h2 className="font-(family-name:--font-cormorant) text-sm font-semibold uppercase tracking-[0.25em] text-violet-600">
-            Featured Projects
-          </h2>
-        </ScrollReveal>
+        <SectionHeading index="03" title="Featured Projects" />
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-8 space-y-5">
           {campaigns.map((campaign, i) => (
-            <ScrollReveal key={campaign.title} delay={i * 0.08}>
+            <ScrollReveal
+              key={campaign.title}
+              delay={i * 0.06}
+              direction={i % 2 === 0 ? "left" : "right"}
+            >
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25 }}
-                className={`glass group overflow-hidden rounded-2xl border-violet-200/40 hover:border-violet-300 transition-colors ${
-                  [
-                    "glass-pastel-pink",
-                    "glass-pastel-lavender",
-                    "glass-pastel-mint",
-                    "glass-pastel-peach",
-                    "glass-pastel-sky",
-                    "glass-pastel-violet",
-                  ][i % 6]
-                }`}
+                className="card-paper group overflow-hidden rounded-xl"
               >
                 <div className="p-6 sm:p-8">
-                  {/* Header badges */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <motion.a
-                      href={campaign.liveUrl}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.15 }}
-                      className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-violet-50 px-3 py-1.5 text-xs font-medium text-muted hover:text-violet-600 transition-colors"
-                    >
-                      <ExternalLink size={12} />
-                      Live Demo
-                    </motion.a>
-                    <motion.a
-                      href={campaign.caseUrl}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.15 }}
-                      className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-violet-50 px-3 py-1.5 text-xs font-medium text-muted hover:text-violet-600 transition-colors"
-                    >
-                      <BarChart3 size={12} />
-                      Case Study
-                    </motion.a>
-                    <span className="rounded-lg bg-pink-100 px-3 py-1.5 text-xs font-medium text-pink-700">
-                      {campaign.status}
+                  {/* Index + badges */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="section-index text-3xl leading-none">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span
-                      className={`rounded-lg px-3 py-1.5 text-xs font-medium ${categoryColors[campaign.category]}`}
-                    >
+                    <span className="rounded-full bg-olive-dim px-3 py-1 text-xs font-medium text-olive">
                       {campaign.category}
+                    </span>
+                    <span className="rounded-full border border-(--line) px-3 py-1 text-xs font-medium text-muted">
+                      {campaign.status}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="mt-5 font-(family-name:--font-cormorant) text-xl font-semibold text-foreground sm:text-2xl">
+                  <h3 className="mt-4 font-(family-name:--font-cormorant) text-2xl font-semibold text-foreground sm:text-3xl">
                     {campaign.title}
                   </h3>
-                  <p className="mt-1 text-sm font-medium text-muted">
+                  <p className="mt-1 text-sm font-semibold text-accent">
                     {campaign.client}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                  <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
                     {campaign.description}
                   </p>
 
-                  {/* Tools */}
-                  <div className="mt-5">
-                    <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">
-                      Tools Used
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {campaign.stack.map((tool) => (
-                        <span
-                          key={tool}
-                          className="rounded-lg bg-violet-50 px-3 py-1.5 text-xs font-medium text-foreground border border-violet-200/40"
-                        >
-                          {tool}
-                        </span>
-                      ))}
+                  <div className="mt-6 grid gap-6 md:grid-cols-2">
+                    {/* Key results */}
+                    <div>
+                      <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-muted">
+                        Key Results
+                      </p>
+                      <ul className="space-y-2">
+                        {campaign.features.map((feature) => (
+                          <li
+                            key={feature}
+                            className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
+                          >
+                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
 
-                  {/* Metrics */}
-                  <div className="mt-5 grid grid-cols-3 gap-3">
-                    {campaign.metrics.map((metric) => (
-                      <div
-                        key={metric.label}
-                        className="rounded-xl bg-violet-50 p-3 text-center border border-violet-200/40"
-                      >
-                        <metric.icon
-                          size={14}
-                          className="mx-auto mb-1 text-muted"
-                        />
-                        <div className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground sm:text-xl">
-                          {metric.value}
-                        </div>
-                        <div className="text-xs text-muted">{metric.label}</div>
+                    {/* Metrics + tools */}
+                    <div className="flex flex-col justify-between gap-5">
+                      <div className="grid grid-cols-3 divide-x divide-(--line) border-y border-(--line)">
+                        {campaign.metrics.map((metric) => (
+                          <div
+                            key={metric.label}
+                            className="px-3 py-4 text-center"
+                          >
+                            <div className="font-(family-name:--font-cormorant) text-2xl font-semibold text-foreground">
+                              {metric.value}
+                            </div>
+                            <div className="mt-0.5 text-[11px] uppercase tracking-wider text-muted">
+                              {metric.label}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Features */}
-                  <div className="mt-5">
-                    <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">
-                      Key Results
-                    </p>
-                    <ul className="space-y-2">
-                      {campaign.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
-                        >
-                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                      <div>
+                        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-muted">
+                          Tools Used
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {campaign.stack.map((tool) => (
+                            <span
+                              key={tool}
+                              className="rounded-full border border-(--line) px-3 py-1 text-xs font-medium text-foreground"
+                            >
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>

@@ -41,49 +41,40 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "glass-strong shadow-lg shadow-black/30"
-            : "bg-transparent"
+          scrolled ? "glass-strong" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <motion.a
             href="#"
-            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.15 }}
             className="font-(family-name:--font-cormorant) text-xl font-semibold tracking-tight cursor-pointer text-foreground"
           >
-            Yến Nhi<span className="text-violet-600">.Mktg</span>
+            Yến Nhi<span className="text-accent">.Mktg</span>
           </motion.a>
 
           <div className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
-              <motion.a
+              <a
                 key={link.href}
                 href={link.href}
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.15 }}
-                className="cursor-pointer rounded-lg px-3 py-2 text-sm text-muted hover:text-violet-600 transition-colors"
+                className="link-run cursor-pointer px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
               >
                 {link.label}
-              </motion.a>
+              </a>
             ))}
-            <motion.a
+            <a
               href="#contact"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.15 }}
-              className="ml-3 cursor-pointer rounded-lg border border-violet-300 bg-violet-100 px-5 py-2 text-sm font-medium text-violet-700 hover:border-violet-400 hover:bg-violet-200 transition-colors"
+              className="pill-ink ml-3 px-5 py-2 text-sm font-semibold"
             >
               Resume
-            </motion.a>
+            </a>
           </div>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="cursor-pointer rounded-lg p-2 text-foreground transition-colors hover:bg-violet-100 md:hidden"
+            className="cursor-pointer rounded-lg p-2 text-foreground transition-colors hover:bg-accent-dim md:hidden"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -109,7 +100,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 + 0.1 }}
-                  className="cursor-pointer font-(family-name:--font-cormorant) text-2xl font-medium text-foreground transition-colors hover:text-violet-600"
+                  className="cursor-pointer font-(family-name:--font-cormorant) text-3xl font-medium text-foreground transition-colors hover:text-accent"
                 >
                   {link.label}
                 </motion.a>
@@ -120,7 +111,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mt-4 cursor-pointer rounded-lg border border-violet-300 px-8 py-3 text-lg font-medium text-violet-700 hover:bg-violet-100 transition-colors"
+                className="pill-ink mt-4 px-8 py-3 text-lg font-medium"
               >
                 Resume
               </motion.a>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import MotionProvider from "./components/MotionProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${cormorant.variable} antialiased`}
       >
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

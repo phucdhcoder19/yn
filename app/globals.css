@@ -1,24 +1,31 @@
 @import "tailwindcss";
 
+/*
+  Editorial-on-paper palette.
+  Warm cream ground, warm ink, one fiery vermilion accent used sparingly,
+  lemongrass olive as the supporting tone — no gradients, no glassmorphism.
+*/
 :root {
-  --background: #f5f0fa;
-  --foreground: #2d2a32;
-  --muted: #6b6574;
-  --card: #ffffff;
-  --card-hover: #f8f4f6;
-  --card-border: rgba(216, 191, 216, 0.35);
-  --accent: #9b8bb3;
-  --accent-dim: rgba(216, 191, 216, 0.4);
-  --green: #7a9a7a;
-  --rose: #e8b4bc;
-  --gold: #c9a86c;
-  --champagne: #f5e6d3;
-  --pastel-pink: #ffd1dc;
-  --pastel-lavender: #e6e6fa;
-  --pastel-mint: #c8e6c9;
-  --pastel-peach: #ffdab9;
-  --pastel-sky: #b3e5fc;
-  --pastel-violet: #d8bfd8;
+  --background: #f6f1e8;
+  --foreground: #262119;
+  --muted: #6e6555;
+  --card: #fcfaf4;
+  --card-hover: #f9f5ec;
+  --card-border: rgba(38, 33, 25, 0.14);
+  --accent: #c6491f;
+  --accent-deep: #a93c18;
+  --accent-dim: rgba(198, 73, 31, 0.09);
+  --olive: #66703f;
+  --olive-dim: rgba(102, 112, 63, 0.12);
+  --gold: #b08d4a;
+  --line: rgba(38, 33, 25, 0.14);
+  --line-strong: rgba(38, 33, 25, 0.55);
+  --ink-shadow: rgba(38, 33, 25, 0.08);
+
+  /* Legacy aliases kept so nothing breaks while retinting. */
+  --green: #66703f;
+  --rose: #c6491f;
+  --champagne: #efe7d8;
 }
 
 @theme inline {
@@ -30,12 +37,15 @@
   --color-card-border: var(--card-border);
   --color-accent: var(--accent);
   --color-accent-dim: var(--accent-dim);
+  --color-olive: var(--olive);
+  --color-olive-dim: var(--olive-dim);
   --color-green: var(--green);
   --color-rose: var(--rose);
   --color-gold: var(--gold);
   --color-champagne: var(--champagne);
+  --color-line: var(--line);
   --font-sans: "Inter", system-ui, sans-serif;
-  --font-heading: "Cormorant Garamond", "Poppins", serif;
+  --font-heading: "Cormorant Garamond", serif;
 }
 
 * {
@@ -43,26 +53,33 @@
 }
 
 body {
-  background: #f0f4ff;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
-  background-image:
-    radial-gradient(ellipse 140% 100% at 100% 0%, rgba(179, 229, 252, 0.5) 0%, rgba(179, 229, 252, 0.15) 40%, transparent 70%),
-    radial-gradient(ellipse 120% 90% at 0% 100%, rgba(230, 230, 250, 0.5) 0%, rgba(230, 230, 250, 0.12) 45%, transparent 75%),
-    radial-gradient(ellipse 100% 80% at 50% 40%, rgba(255, 209, 220, 0.35) 0%, rgba(255, 209, 220, 0.08) 50%, transparent 70%),
-    linear-gradient(160deg,
-      #e8f4fc 0%,
-      #f5f0fa 25%,
-      #fce8f4 50%,
-      #f5f0fa 75%,
-      #e8f0fc 100%);
-  background-attachment: fixed;
   min-height: 100vh;
 }
 
+/* Faint paper grain — texture instead of gradients. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main,
+nav,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
 ::selection {
-  background: rgba(216, 191, 216, 0.35);
+  background: rgba(198, 73, 31, 0.22);
   color: var(--foreground);
 }
 
@@ -75,46 +92,117 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(216, 191, 216, 0.6);
+  background: rgba(38, 33, 25, 0.28);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(216, 191, 216, 0.8);
+  background: rgba(38, 33, 25, 0.45);
 }
 
-.glass {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 248, 252, 0.98) 100%);
-  border: 1px solid rgba(216, 191, 216, 0.4);
-  box-shadow: 0 4px 24px rgba(155, 139, 179, 0.08);
+/*
+  Paper card: flat cream surface, hairline ink border, offset "print" shadow.
+  The .glass* names are kept so older markup keeps working.
+*/
+.glass,
+.glass-pastel-pink,
+.glass-pastel-lavender,
+.glass-pastel-mint,
+.glass-pastel-peach,
+.glass-pastel-sky,
+.glass-pastel-violet,
+.card-paper {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: 4px 4px 0 var(--ink-shadow);
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
-.glass-pastel-pink { background: linear-gradient(135deg, rgba(255, 209, 220, 0.4) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(255, 182, 193, 0.5); }
-.glass-pastel-lavender { background: linear-gradient(135deg, rgba(230, 230, 250, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(216, 191, 216, 0.5); }
-.glass-pastel-mint { background: linear-gradient(135deg, rgba(200, 230, 201, 0.4) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(165, 214, 167, 0.5); }
-.glass-pastel-peach { background: linear-gradient(135deg, rgba(255, 218, 185, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(255, 200, 160, 0.5); }
-.glass-pastel-sky { background: linear-gradient(135deg, rgba(179, 229, 252, 0.4) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(144, 202, 249, 0.5); }
-.glass-pastel-violet { background: linear-gradient(135deg, rgba(216, 191, 216, 0.5) 0%, rgba(255, 255, 255, 0.95) 100%); border-color: rgba(206, 147, 216, 0.4); }
+.card-paper:hover,
+.glass:hover {
+  border-color: var(--line-strong);
+  box-shadow: 6px 6px 0 var(--ink-shadow);
+}
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(216, 191, 216, 0.25);
-  box-shadow: 0 4px 30px rgba(155, 139, 179, 0.04);
+  background: rgba(246, 241, 232, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
 }
 
 .progress-bar {
-  background: linear-gradient(90deg, #d8bfd8, #c8e6c9);
+  background: var(--accent);
   border-radius: 9999px;
   height: 100%;
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-label {
+  font-family: var(--font-sans);
+  letter-spacing: 0.28em;
+  color: var(--accent);
+}
+
+/* Big editorial section numbers — 01 / 02 / 03… */
+.section-index {
   font-family: var(--font-heading);
-  letter-spacing: 0.2em;
-  color: var(--gold);
+  font-style: italic;
+  color: var(--line-strong);
+}
+
+/* Marker highlight that sweeps across a keyword once. */
+.marker {
+  background-image: linear-gradient(
+    transparent 58%,
+    rgba(198, 73, 31, 0.3) 58%,
+    rgba(198, 73, 31, 0.3) 94%,
+    transparent 94%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: marker-sweep 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+}
+
+@keyframes marker-sweep {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+/* Underline that runs in from the left on hover. */
+.link-run {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-run:hover {
+  background-size: 100% 1.5px;
+}
+
+/* Interactive pill: hairline ink border, fills with ink on hover. */
+.pill-ink {
+  cursor: pointer;
+  border-radius: 9999px;
+  border: 1px solid rgba(38, 33, 25, 0.35);
+  background: transparent;
+  color: var(--foreground);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pill-ink:hover {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -122,5 +210,9 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .marker {
+    background-size: 100% 100%;
   }
 }

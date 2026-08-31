@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Send, Mail, Phone, MapPin } from "lucide-react";
 import ScrollReveal, { staggerContainer, staggerItem } from "./ScrollReveal";
+import SectionHeading from "./SectionHeading";
 
 const contactInfo = [
   {
@@ -26,6 +27,9 @@ const contactInfo = [
   },
 ];
 
+const inputClass =
+  "w-full rounded-lg border border-(--line) bg-card px-4 py-3 text-sm text-foreground placeholder-muted/50 outline-none transition-colors duration-200 focus:border-(--line-strong)";
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -41,13 +45,16 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-20 px-4 sm:px-6 sm:py-28">
       <div className="relative mx-auto max-w-6xl">
-        <ScrollReveal>
-          <h2 className="font-(family-name:--font-cormorant) text-sm font-semibold uppercase tracking-[0.25em] text-violet-600">
-            Get In Touch
-          </h2>
+        <SectionHeading index="06" title="Get In Touch" />
+
+        <ScrollReveal delay={0.05}>
+          <p className="mt-6 max-w-2xl font-(family-name:--font-cormorant) text-2xl leading-snug text-foreground sm:text-3xl">
+            Có một câu chuyện thương hiệu cần được kể?{" "}
+            <em className="text-accent">Hãy cùng làm nó đáng nghe.</em>
+          </p>
         </ScrollReveal>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-5">
+        <div className="mt-8 grid gap-4 lg:grid-cols-5">
           {/* Contact Info */}
           <ScrollReveal delay={0.1} className="lg:col-span-2">
             <motion.div
@@ -55,12 +62,12 @@ export default function Contact() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-50px" }}
-              className="glass glass-pastel-sky h-full rounded-2xl p-6 sm:p-8 border-sky-200/40"
+              className="card-paper h-full rounded-xl p-6 sm:p-8"
             >
-              <h3 className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground">
+              <h3 className="text-xs font-bold uppercase tracking-[0.28em] text-olive">
                 Contact Information
               </h3>
-              <p className="mt-2 text-sm text-muted">
+              <p className="mt-3 text-sm text-muted">
                 Let&apos;s discuss how I can help grow your brand.
               </p>
 
@@ -76,13 +83,16 @@ export default function Contact() {
                         : undefined
                     }
                     variants={staggerItem}
-                    whileHover={{ x: 4, scale: 1.01 }}
+                    whileHover={{ x: 4 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.15 }}
-                    className="group flex cursor-pointer items-center gap-3 rounded-xl bg-violet-200/5 border border-violet-200/10 p-3.5 hover:border-violet-200/20 hover:bg-violet-200/10 transition-colors"
+                    className="group flex cursor-pointer items-center gap-3 rounded-lg border border-(--line) p-3.5 transition-colors hover:border-(--line-strong) hover:bg-card-hover"
                   >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-100">
-                      <info.icon size={16} className="text-violet-600" />
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-(--line) transition-colors group-hover:border-foreground group-hover:bg-foreground">
+                      <info.icon
+                        size={15}
+                        className="text-foreground transition-colors group-hover:text-background"
+                      />
                     </div>
                     <div>
                       <p className="text-xs text-muted">{info.label}</p>
@@ -98,54 +108,52 @@ export default function Contact() {
 
           {/* Contact Form */}
           <ScrollReveal delay={0.15} className="lg:col-span-3">
-            <motion.div
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
-              className="glass glass-pastel-mint rounded-2xl p-6 sm:p-8 border-emerald-200/40 hover:border-emerald-300 transition-colors"
-            >
-              <h3 className="font-(family-name:--font-cormorant) text-lg font-semibold text-foreground">
+            <div className="card-paper rounded-xl p-6 sm:p-8">
+              <h3 className="text-xs font-bold uppercase tracking-[0.28em] text-olive">
                 Send Me a Message
               </h3>
 
               <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-2 block text-sm font-medium text-foreground"
-                  >
-                    Your Name
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    className="w-full rounded-xl border border-violet-200/50 bg-white px-4 py-3 text-sm text-foreground placeholder-muted/50 outline-none transition-all duration-200 focus:border-violet-400 focus:ring-1 focus:ring-violet-200"
-                    placeholder="Your name"
-                  />
-                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="mb-2 block text-sm font-medium text-foreground"
+                    >
+                      Your Name
+                    </label>
+                    <input
+                      id="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Your name"
+                    />
+                  </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-2 block text-sm font-medium text-foreground"
-                  >
-                    Your Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className="w-full rounded-xl border border-violet-200/50 bg-white px-4 py-3 text-sm text-foreground placeholder-muted/50 outline-none transition-all duration-200 focus:border-violet-400 focus:ring-1 focus:ring-violet-200"
-                    placeholder="your@email.com"
-                  />
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="mb-2 block text-sm font-medium text-foreground"
+                    >
+                      Your Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="your@email.com"
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -163,23 +171,23 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    className="w-full resize-none rounded-xl border border-card-border bg-background px-4 py-3 text-sm text-foreground placeholder-muted/50 outline-none transition-all duration-200 focus:border-white/20 focus:ring-1 focus:ring-white/10"
+                    className={`${inputClass} resize-none`}
                     placeholder="Tell me about your project..."
                   />
                 </div>
 
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.15 }}
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-violet-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white hover:bg-violet-600 transition-colors"
+                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-foreground px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-background transition-colors hover:bg-accent"
                 >
                   <Send size={14} />
                   Send Message
                 </motion.button>
               </form>
-            </motion.div>
+            </div>
           </ScrollReveal>
         </div>
       </div>
